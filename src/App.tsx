@@ -1,23 +1,34 @@
 /*App.js*/
-import React, { Component } from "react";
+import { Component } from "react";
 import "./App.css";
 //Import all needed Component for this tutorial
-import { json, createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  json,
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
 import PersonCard from "./components/PersonCard";
 import CreateContact from "./components/CreateContact";
 import ContactList from "./components/ContactList";
-import { v4 as uuidv4 } from "uuid";
 import Root from "./routes/Root";
+import Contact from "./types/Contact";
 
-function getData(id: string): string | null {
-  return id === "" ? null : localStorage.getItem("id");
-}
-function getAllData() {
-  return { ...localStorage };
+function getData(id: string): any {
+  if (id === "") {
+    return null;
+  }
+  let data = localStorage.getItem(id);
+  if (data === null) {
+    localStorage.setItem(id, "[]");
+    return [];
+  } else {
+    return JSON.parse(data);
+  }
 }
 
-function setData(id: string, data: any) {
-  localStorage.setItem(id, data);
+function setData(key: string, data: string) {
+  localStorage.setItem("contacts", data);
 }
 
 const router = createBrowserRouter([
@@ -30,7 +41,7 @@ const router = createBrowserRouter([
         path: "list",
         element: <ContactList />,
         loader: async () => {
-          return json(getAllData());
+          return getData("contacts");
         },
       },
       {
@@ -38,8 +49,10 @@ const router = createBrowserRouter([
         element: <CreateContact />,
         action: async ({ request }) => {
           const formData = await request.formData();
-          setData(uuidv4(), Object.fromEntries(formData.entries()));
-          return null;
+          const currentData = getData("contacts");
+          currentData.push(Object.fromEntries(formData.entries()));
+          setData("contacts", JSON.stringify(currentData));
+          return redirect("/list");
         },
       },
       {
@@ -47,8 +60,9 @@ const router = createBrowserRouter([
         element: <PersonCard />,
         loader: async ({ params }) => {
           const personId: string = params.id ? params.id : "";
-          const data = getData(personId);
-          return json(data);
+          const data = getData("contacts");
+          const contact = Object.entries(data).forEach((e) => {});
+          return json(contact);
         },
       },
     ],
