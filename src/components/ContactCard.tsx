@@ -5,7 +5,7 @@ function ContactCard({ id, name }: { id: string; name: string }) {
   return (
     <Window style={{ width: "100%" }}>
       <WindowContent >
-        <GroupBox label={name} style={{ display: "flex", justifyContent: "space-evenly" }}>
+        <GroupBox className="contact-box" label={name} style={{ display: "flex", justifyContent: "space-evenly" }}>
           <Anchor>
             <Link className="contact-card-link" to={`/person/${id}`}>Open Contact</Link>
           </Anchor>

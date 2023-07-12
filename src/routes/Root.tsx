@@ -16,7 +16,7 @@ export default function Root() {
       <GlobalStyles />
       <ThemeProvider theme={original}>
         <NavBar />
-        <Window style={{ margin: "5rem 2rem", position: "fixed", width: "50vw" }}>
+        <Window style={{ margin: "5rem 2rem", position: "fixed", width: "80%", maxWidth: "900px" }}>
           <WindowHeader>Contact App</WindowHeader>
           <WindowContent>
             <Outlet />

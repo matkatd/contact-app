@@ -29,7 +29,7 @@
 }
 
 .contact-form {
-  width: 40vw;
+  /* width: 40vw; */
   margin: 5rem 2rem;
 }
 
@@ -39,6 +39,15 @@
 
 a:has(.contact-card-link) {
   padding: 0rem 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .contact-box {
+    flex-direction: column;
+  }
+  a:has(.contact-card-link) {
+    padding: 1rem 1rem;
+  }
 }
 
 @font-face {
