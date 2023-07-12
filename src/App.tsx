@@ -59,10 +59,12 @@ const router = createBrowserRouter([
         path: "person/:personId",
         element: <PersonCard />,
         loader: async ({ params }) => {
-          const personId: string = params.id ? params.id : "";
+          const personId: string = params.personId ? params.personId : "";
           const data = getData("contacts");
-          const contact = Object.entries(data).forEach((e) => {});
-          return json(contact);
+          const contact = data.filter((e: Contact) => {
+            return e.id === personId;
+          });
+          return json(contact[0]);
         },
       },
     ],

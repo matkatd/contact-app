@@ -28,6 +28,37 @@
   color: #61dafb;
 }
 
+.contact-form {
+  width: 50vw;
+  margin: 5rem 2rem;
+}
+
+.contact-list {
+  margin: 5rem 2rem;
+}
+
+.person-card {
+}
+
+@font-face {
+  font-family: "ms_sans_serif";
+  src: url("../public/W95FA.otf");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ms_sans_serif_bold";
+  src: url("../public/W95FA.otf");
+  font-weight: bold;
+  font-style: normal;
+}
+body,
+input,
+select,
+textarea {
+  font-family: ms_sans_serif !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

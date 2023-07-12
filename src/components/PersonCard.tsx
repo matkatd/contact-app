@@ -1,15 +1,21 @@
+import { useLoaderData } from "react-router-dom";
+import { GroupBox } from "react95";
+import Contact from "../types/Contact";
+
 function PersonCard() {
+  const data: any = useLoaderData();
   return (
     <div>
-      <h2>Person Name</h2>
-      <div className="contact-info">
-        <ul>
-          <li>address</li>
-          <li>phone number</li>
-          <li>email</li>
-          <li>category</li>
-        </ul>
-      </div>
+      <GroupBox label={data.name}>
+        <div className="contact-info">
+          <div className="">
+            <GroupBox label="Email">{data.email}</GroupBox>
+            <GroupBox label="Phone">{data.phone}</GroupBox>
+            <GroupBox label="Address">{data.address}</GroupBox>
+            <GroupBox label="Category">{data.category}</GroupBox>
+          </div>
+        </div>
+      </GroupBox>
     </div>
   );
 }
