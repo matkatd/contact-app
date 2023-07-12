@@ -7,7 +7,7 @@ function NavBar() {
       <Toolbar>
         <MenuList inline="true">
           <MenuListItem>
-            <Link to="/">Contact App</Link>
+            <Link to="/list">Contact App</Link>
           </MenuListItem>
           <Handle size={38} />
           <MenuListItem>

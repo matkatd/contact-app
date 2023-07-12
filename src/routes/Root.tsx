@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { styleReset, Window } from "react95";
+import { styleReset, Window, WindowHeader, WindowContent } from "react95";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 /* Pick a theme of your choice */
 import original from "react95/dist/themes/original";
@@ -17,7 +17,10 @@ export default function Root() {
       <ThemeProvider theme={original}>
         <NavBar />
         <Window style={{ margin: "5rem 2rem", position: "fixed", width: "50vw" }}>
-          <Outlet />
+          <WindowHeader>Contact App</WindowHeader>
+          <WindowContent>
+            <Outlet />
+          </WindowContent>
         </Window>
       </ThemeProvider>
     </>
