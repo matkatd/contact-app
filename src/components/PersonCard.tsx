@@ -1,6 +1,5 @@
 import { useLoaderData } from "react-router-dom";
 import { GroupBox } from "react95";
-import Contact from "../types/Contact";
 
 function PersonCard() {
   const data: any = useLoaderData();

@@ -13,23 +13,10 @@ import CreateContact from "./components/CreateContact";
 import ContactList from "./components/ContactList";
 import Root from "./routes/Root";
 import Contact from "./types/Contact";
+import { getData, setData } from "./utils";
+import EditContact from "./components/EditContact";
 
-function getData(id: string): any {
-  if (id === "") {
-    return null;
-  }
-  let data = localStorage.getItem(id);
-  if (data === null) {
-    localStorage.setItem(id, "[]");
-    return [];
-  } else {
-    return JSON.parse(data);
-  }
-}
 
-function setData(key: string, data: string) {
-  localStorage.setItem("contacts", data);
-}
 
 const router = createBrowserRouter([
   {
@@ -49,8 +36,8 @@ const router = createBrowserRouter([
         element: <CreateContact />,
         action: async ({ request }) => {
           const formData = await request.formData();
-          const currentData = getData("contacts");
-          currentData.push(Object.fromEntries(formData.entries()));
+          const currentData: Array<Contact> = getData("contacts");
+          currentData.push(Object.fromEntries(formData.entries()) as unknown as Contact);
           setData("contacts", JSON.stringify(currentData));
           return redirect("/list");
         },
@@ -60,11 +47,46 @@ const router = createBrowserRouter([
         element: <PersonCard />,
         loader: async ({ params }) => {
           const personId: string = params.personId ? params.personId : "";
-          const data = getData("contacts");
-          const contact = data.filter((e: Contact) => {
+          const data: Array<Contact> = getData("contacts");
+          const contact: Array<Contact> = data.filter((e: Contact) => {
             return e.id === personId;
           });
           return json(contact[0]);
+        },
+      },
+      {
+        path: "person/:personId/edit",
+        element: <EditContact />,
+        loader: async ({ params }) => {
+          const personId: string = params.personId ? params.personId : "";
+          const data: Array<Contact> = getData("contacts");
+          const contact: Array<Contact> = data.filter((e: Contact) => {
+            return e.id === personId;
+          });
+          return json(contact[0]);
+        },
+        action: async ({ params, request }) => {
+          const formData = await request.formData();
+          const currentData: Array<Contact> = getData("contacts");
+          const personId: string = params.personId ? params.personId : "";
+          const contacts: Array<Contact> = currentData.filter((e: Contact) => {
+            return e.id !== personId
+          })
+          contacts.push(Object.fromEntries(formData.entries()) as unknown as Contact);
+          setData("contacts", JSON.stringify(contacts));
+          return redirect("/list");
+        },
+      },
+      {
+        path: "person/:personId/delete",
+        loader: async ({ params }) => {
+          const personId: string = params.personId ? params.personId : "";
+          const data: Array<Contact> = getData("contacts");
+          const contacts: Array<Contact> = data.filter((e: Contact) => {
+            return e.id !== personId;
+          });
+          setData("contacts", JSON.stringify(contacts));
+          return redirect("/list");
         },
       },
     ],

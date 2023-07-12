@@ -29,7 +29,7 @@
 }
 
 .contact-form {
-  width: 50vw;
+  width: 40vw;
   margin: 5rem 2rem;
 }
 
@@ -37,7 +37,8 @@
   margin: 5rem 2rem;
 }
 
-.person-card {
+a:has(.contact-card-link) {
+  padding: 0rem 1rem;
 }
 
 @font-face {

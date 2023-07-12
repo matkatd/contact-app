@@ -3,11 +3,17 @@ import { Anchor, GroupBox, Window, WindowContent } from "react95";
 
 function ContactCard({ id, name }: { id: string; name: string }) {
   return (
-    <Window style={{ width: "60%" }}>
-      <WindowContent>
-        <GroupBox label={name}>
+    <Window style={{ width: "100%" }}>
+      <WindowContent >
+        <GroupBox label={name} style={{ display: "flex", justifyContent: "space-evenly" }}>
           <Anchor>
-            <Link to={`/person/${id}`}>Open Contact</Link>
+            <Link className="contact-card-link" to={`/person/${id}`}>Open Contact</Link>
+          </Anchor>
+          <Anchor>
+            <Link className="contact-card-link" to={`/person/${id}/edit`}>Update Contact</Link>
+          </Anchor>
+          <Anchor>
+            <Link className="contact-card-link" to={`/person/${id}/delete`}>Delete Contact</Link>
           </Anchor>
         </GroupBox>
       </WindowContent>
